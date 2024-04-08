@@ -13,7 +13,7 @@ import { useNavigate } from 'react-router-dom';
 
 export default function FoodEditPage() {
   const { foodId } = useParams();
-  const [imageUrl, setImageUrl] = useState();
+  const [imageUrl, setImageUrl] = useState(null);
   const isEditMode = !!foodId;
 
   const navigate = useNavigate();
@@ -34,7 +34,7 @@ export default function FoodEditPage() {
       setImageUrl(food.imageUrl);
     });
   }, [foodId]);
-
+  
   const submit = async foodData => {
     const food = { ...foodData, imageUrl };
 
@@ -49,11 +49,14 @@ export default function FoodEditPage() {
     navigate('/admin/editFood/' + newFood.id, { replace: true });
   };
 
-  const upload = async event => {
+   
+  const upload = async (event) => {
     setImageUrl(null);
     const imageUrl = await uploadImage(event);
-    setImageUrl(imageUrl);
-  };
+    console.log(imageUrl);
+      setImageUrl((imageUrl));
+ };
+  
 
   return (
     <div className={classes.container}>
@@ -108,7 +111,6 @@ export default function FoodEditPage() {
             {...register('cookTime', { required: true })}
             error={errors.cookTime}
           />
-
           <Button type="submit" text={isEditMode ? 'Update' : 'Create'} />
         </form>
       </div>
