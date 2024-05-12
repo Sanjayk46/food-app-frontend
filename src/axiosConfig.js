@@ -1,6 +1,6 @@
 import axios from 'axios';
 const AxiosService = axios.create({
-  baseURL: 'http://localhost:8000/',
+  baseURL: 'https://food-skrestaurant-backend.onrender.com',
   headers: {
     "Content-Type": "application/json",
   },
