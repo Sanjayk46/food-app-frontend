@@ -24,6 +24,22 @@ export const AuthProvider =({ children })=>{
          toast.error(error.response.data);
        }
     }
+    const forgotPassword = async data =>{
+        try {
+            const user = await userService.forgotPassword(data);
+            toast.success('password send your email') 
+        } catch (error) {
+            toast.error(error.response.data); 
+        }
+    }
+    const resetPassword = async data =>{
+        try {
+            const user = await userService.resetPassword(data);
+            toast.success('your password reset successfully') 
+        } catch (error) {
+            toast.error(error.response.data); 
+        }
+    }
     const updateProfile = async user => {
         const updatedUser = await userService.updateProfile(user);
         toast.success('Profile Update Was Successful');
@@ -42,7 +58,7 @@ export const AuthProvider =({ children })=>{
     };
 
     return(
-        <AuthContext.Provider value={{user ,login ,register, updateProfile, changePassword, logout}}>
+        <AuthContext.Provider value={{user ,login ,register, updateProfile, forgotPassword,resetPassword,changePassword, logout}}>
            {children}
         </AuthContext.Provider>
     );

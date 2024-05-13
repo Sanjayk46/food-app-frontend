@@ -11,3 +11,17 @@
   font-weight: 600;
   color: blue;
 }
+.container a {
+  background-color: #f0f0f0;
+  padding: 0.3rem 1rem;
+  margin: 0.2rem 0.15rem;
+  border-radius: 10rem;
+  font-weight: 600;
+  color: blue;
+  transition: background-color 0.3s ease; /* Add transition for smooth effect */
+}
+
+.container a:hover {
+  background-color: #e72929; /* Change background color on hover */
+  color: white; /* Change text color on hover */
+}

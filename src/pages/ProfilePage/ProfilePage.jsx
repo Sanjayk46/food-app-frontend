@@ -24,10 +24,20 @@ export default function ProfilePage(){
           <Title title="Update Profile" />
           <form onSubmit={handleSubmit(submit)}>
             <Input
-              defaultValue={user.name}
+              defaultValue={user.firstName}
               type="text"
-              label="Name"
-              {...register('name', {
+              label="FirstName"
+              {...register('firstName', {
+                required: true,
+                minLength: 5,
+              })}
+              error={errors.name}
+            />
+            <Input
+              defaultValue={user.lastName}
+              type="text"
+              label="LastName"
+              {...register('lastName', {
                 required: true,
                 minLength: 5,
               })}

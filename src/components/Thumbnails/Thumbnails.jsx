@@ -5,7 +5,6 @@ import StarRating from '../StarRating/StarRating';
 import classes from './thumbnails.module.css';
 // import Button from '../Button/Button';
 export default function Thumbnails({ foods }) {
-  console.log(foods);
   // console.log(foods.length ==0);
   // if(foods.length == 0){
   //   return(

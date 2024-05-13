@@ -22,8 +22,12 @@ export default function PaymentPage() {
           <Title title="Order Form" fontSize="1.6rem" />
           <div className={classes.summary}>
             <div>
-              <h3>Name:</h3>
-              <span>{order.name}</span>
+              <h3>firstName:</h3>
+              <span>{order.firstName}</span>
+            </div>
+            <div>
+              <h3>lastName:</h3>
+              <span>{order.lastName}</span>
             </div>
             <div>
               <h3>Address:</h3>

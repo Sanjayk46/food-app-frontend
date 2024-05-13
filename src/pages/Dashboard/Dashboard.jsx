@@ -6,11 +6,46 @@ import { Link } from 'react-router-dom';
 export default function Dashboard() {
   const { user } = useAuth();
 
+  // Define allItems array inside the component
+  const allItems = [
+    {
+      title: 'Orders',
+      imageUrl: '/icons/orders.svg',
+      url: user.isAdmin ? '/admin/orders' : '/orders',
+      bgColor: '#ec407a',
+      color: 'white',
+    },
+    {
+      title: 'Profile',
+      imageUrl: '/icons/profile.svg',
+      url: '/profile',
+      forAdmin: false,
+      bgColor: '#808080',
+      color: 'white',
+    },
+    {
+      title: 'Users',
+      imageUrl: '/icons/users.svg',
+      url: '/admin/users',
+      forAdmin: true,
+      bgColor: '#00bfa5',
+      color: 'white',
+    },
+    {
+      title: 'Foods',
+      imageUrl: '/icons/foods.svg',
+      url: '/admin/foods',
+      forAdmin: true,
+      bgColor: '#e040fb',
+      color: 'white',
+    },
+  ];
+
   return (
     <div className={classes.container}>
       <div className={classes.menu}>
         {allItems
-          .filter(item => user.isAdmin || !item.forAdmin)
+          .filter(item => !item.forAdmin || user.isAdmin) // Filter items based on user role
           .map(item => (
             <Link
               key={item.title}
@@ -28,36 +63,3 @@ export default function Dashboard() {
     </div>
   );
 }
-
-const allItems = [
-  {
-    title: 'Orders',
-    imageUrl: '/icons/orders.svg',
-    url: '/orders',
-    bgColor: '#ec407a',
-    color: 'white',
-  },
-  {
-    title: 'Profile',
-    imageUrl: '/icons/profile.svg',
-    url: '/profile',
-    bgColor: '#808080',
-    color: 'white',
-  },
-  {
-    title: 'Users',
-    imageUrl: '/icons/users.svg',
-    url: '/admin/users',
-    forAdmin: true,
-    bgColor: '#00bfa5',
-    color: 'white',
-  },
-  {
-    title: 'Foods',
-    imageUrl: '/icons/foods.svg',
-    url: '/admin/foods',
-    forAdmin: true,
-    bgColor: '#e040fb',
-    color: 'white',
-  },
-];

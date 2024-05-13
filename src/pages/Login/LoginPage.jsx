@@ -60,9 +60,14 @@ export default function LoginPage() {
             error={errors.password}
           />
           <Button type="submit" text="Login" />
-
           <div className={classes.register}>
-            New user? &nbsp;
+            
+            <Link to={`/forgot-password${returnUrl ? '?returnUrl=' + returnUrl : ''}`}>
+              ForgotPassword
+            </Link>
+          </div>
+          <div className={classes.register}>
+            Don't have an account ? &nbsp;
             <Link to={`/register${returnUrl ? '?returnUrl=' + returnUrl : ''}`}>
               Register here
             </Link>

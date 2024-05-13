@@ -2,13 +2,9 @@
 // import axios from 'axios';
 
 export const createOrder = async order => {
-  try {
+ 
     const { data } = AxiosService.post('/api/orders/create', order);
-    console.log(data);
     return data;
-    
-    
-  } catch (error) {}
 };
 
 export const getNewOrderForCurrentUser = async () => {
@@ -27,6 +23,14 @@ export const pay = async paymentId => {
 
 export const trackOrderById = async orderId => {
   const { data } = await AxiosService.get('/api/orders/track/' + orderId);
+  return data;
+};
+export const admintrackId = async (orderId, newStatus) => {
+  const { data } = await AxiosService.put(`/api/orders/${orderId}`, { status: newStatus });
+  return data;
+};
+export const getorderstatus = async orderId => {
+  const { data } = await AxiosService.get('/api/orders/orderlist' + orderId);
   return data;
 };
 

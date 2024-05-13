@@ -33,8 +33,12 @@ export default function OrderTrackPage() {
               <Date date={order.createdAt} /> 
             </div>
             <div>
-              <strong>Name</strong>
-              {order.name}
+              <strong>firstName</strong>
+              {order.firstName}
+            </div>
+            <div>
+              <strong>lastName</strong>
+              {order.lastName}
             </div>
             <div>
               <strong>Address</strong>

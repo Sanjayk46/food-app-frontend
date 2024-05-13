@@ -15,7 +15,7 @@
   border-radius: 3rem;
   flex: 1 0;
   object-fit: cover;
-  height: 35rem;
+  height: 28rem;
   margin: 1rem;
 }
 
@@ -97,4 +97,5 @@
 .container button:hover {
   opacity: 0.9;
   cursor: pointer;
+  background-color:#e72929;
 }

@@ -41,9 +41,15 @@ export default function CheckoutPage(){
           <Title title="Order Form" fontSize="1.6rem"/>
           <div className={classes.inputs}>
             <Input
-            defaultValue={user.name}
-            label="Name"
-            {...register('name')}
+            defaultValue={user.firstName}
+            label="FirstName"
+            {...register('firstName')}
+            error = {errors.name}
+            />
+            <Input
+            defaultValue={user.lastName}
+            label="LastName"
+            {...register('lastName')}
             error = {errors.name}
             />
             <Input
@@ -59,7 +65,6 @@ export default function CheckoutPage(){
           <Title title="Choose your location" fontSize="1.6rem"/>
           <Map location={order.addressLatLng}
           onChange={latLng=>{
-            console.log(latLng)
             setOrder({...order, addressLatLng: latLng})
           }}
           />

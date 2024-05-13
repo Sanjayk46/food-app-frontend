@@ -42,8 +42,13 @@ export default function UserEditPage() {
         <Title title={isEditMode ? 'Edit User' : 'Add User'} />
         <form onSubmit={handleSubmit(submit)} noValidate>
           <Input
-            label="Name"
-            {...register('name', { required: true, minLength: 3 })}
+            label="FirstName"
+            {...register('firstName', { required: true, minLength: 3 })}
+            error={errors.name}
+          />
+           <Input
+            label="LastName"
+            {...register('lastName', { required: true, })}
             error={errors.name}
           />
           <Input

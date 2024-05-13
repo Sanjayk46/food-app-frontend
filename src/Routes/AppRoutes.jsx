@@ -15,9 +15,11 @@ import Dashboard from '../pages/Dashboard/Dashboard';
 import OrderPage from '../pages/Order/OrderPage';
 import FoodsAdminPage from '../pages/FoodsAdmin/FoodsAdminPage';
 import FoodEditPage from '../pages/FoodEdit/FoodEditPage';
+import ForgotPage from '../pages/ForgotPage/Forgotpage';
+import ResetPage from '../pages/ResetPage/ResetPage';
 import UsersPage from '../pages/UsersPage/UsersPage';
 import UserEditPage from '../pages/UserEdit/UserEditPage';
-
+import OrderAdminPage from '../pages/OrderAdminPage/OrderadminPage';
 export default function AppRoutes() {
   return (
     
@@ -25,6 +27,8 @@ export default function AppRoutes() {
       <Route path="/" element={<HomePage />} />
       <Route path="/login" element={<LoginPage />} />
       <Route path="/register" element={<RegisterPage />} />
+      <Route path="/forgot-password" element={<ForgotPage />} />
+      <Route path="/reset-password" element={<ResetPage />} />
       <Route path="/search/:searchTerm" element={<HomePage/>}/>
       <Route path="/tag/:tag" element={<HomePage/>}/>
       <Route path="/food/:id" element={<FoodPage/>}/>
@@ -87,7 +91,15 @@ export default function AppRoutes() {
            </AdminRoute>
          }
        />
-             <Route
+               <Route
+         path="/admin/orders"
+         element={
+           <AdminRoute>
+             <OrderAdminPage/>
+           </AdminRoute>
+         }
+       />
+        <Route
         path="/admin/editFood/:foodId"
         element={
           <AdminRoute>

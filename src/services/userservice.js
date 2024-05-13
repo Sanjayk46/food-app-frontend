@@ -42,10 +42,18 @@ export const logout = () => {
     const { data } = await AxiosService.get('/api/users/getAll/' + (searchTerm ?? ''));
     return data;
   };
-  export const changePassword = async passwords => {
-   const {data} = await AxiosService.put('/api/users/changePassword', passwords);
+  export const forgotPassword = async passwords => {
+   const {data} = await AxiosService.post('/api/users/forgotPassword', passwords);
    return data;
   };
+  export const resetPassword = async (OTP,passwords) => {
+    const {data} = await AxiosService.post('/api/users/resetpassword',OTP, passwords);
+    return data;
+   };
+   export const changePassword = async passwords => {
+    const {data} = await AxiosService.put('/api/users/changePassword', passwords);
+    return data;
+   };
   export const toggleBlock = async userId => {
     const { data } = await AxiosService.put('/api/users/toggleBlock/' + userId);
     return data;

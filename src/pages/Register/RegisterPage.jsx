@@ -44,14 +44,22 @@ export default function RegisterPage() {
         <form onSubmit={handleSubmit(submit)} noValidate>
           <Input
             type="text"
-            label="Name"
-            {...register('name', {
+            label="FirstName"
+            {...register('firstName', {
               required: true,
               minLength: 5,
             })}
             error={errors.name}
           />
-
+         <Input
+            type="text"
+            label="LastName"
+            {...register('lastName', {
+              required: true,
+              minLength: 5,
+            })}
+            error={errors.name}
+          />
           <Input
             type="email"
             label="Email"
