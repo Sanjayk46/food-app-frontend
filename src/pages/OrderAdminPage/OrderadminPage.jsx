@@ -1,27 +1,47 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useReducer, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { getorderstatus, admintrackId } from '../../services/orderservice';
-import Title from '../../components/Title/Title';
+import { getAll, admintrackId, getorderstatus } from '../../services/orderservice';
 import classes from './orderadmin.module.css';
+import Title from '../../components/Title/Title';
+import DateTime from '../../components/Date/Date';
+import Price from '../../components/Price/Price';
+
+const initialState = {};
+const reducer = (state, action) => {
+  const { type, payload } = action;
+  switch (type) {
+    case 'ALL_STATUS_FETCHED':
+      return { ...state, allStatus: payload };
+    case 'ORDERS_FETCHED':
+      return { ...state, orders: payload };
+    default:
+      return state;
+  }
+};
+// Import statements and other code...
 
 export default function OrderAdminPage() {
-  const { orderId } = useParams();
-  const [order, setOrder] = useState(null); // Initialize as null initially
+  const [{ allStatus, orders }, dispatch] = useReducer(reducer, initialState);
+  const { filter } = useParams();
+  const [order, setOrder] = useState([]);
 
   useEffect(() => {
-    const fetchOrder = async () => {
-      try {
-        const fetchedOrder = await getorderstatus(orderId);
-        setOrder(fetchedOrder);
-      } catch (error) {
-        console.error('Error fetching order:', error);
-      }
-    };
+    getAll(filter).then(orders => {
+      dispatch({ type: 'ORDERS_FETCHED', payload: orders });
+      // Fetch individual order status
+      fetchOrderStatus(orders);
+    });
+  }, [filter]);
 
-    if (orderId) {
-      fetchOrder();
+  const fetchOrderStatus = async orders => {
+    try {
+      const statusPromises = orders.map(order => getorderstatus(order.id));
+      const statuses = await Promise.all(statusPromises);
+      setOrder(statuses);
+    } catch (error) {
+      console.error('Error fetching order status:', error);
     }
-  }, [orderId]);
+  };
 
   const handleStatusChange = async (id, newStatus) => {
     const confirmed = window.confirm(`Are you sure you want to change the status to ${newStatus}?`);
@@ -30,10 +50,12 @@ export default function OrderAdminPage() {
         await admintrackId(id, newStatus);
         // Update the order status in the frontend
         setOrder(prevOrder => {
-          if (prevOrder.id === id) {
-            return { ...prevOrder, status: newStatus };
-          }
-          return prevOrder;
+          return prevOrder.map(order => {
+            if (order.id === id) {
+              return { ...order, status: newStatus };
+            }
+            return order;
+          });
         });
         alert('Order status updated successfully!');
       } catch (error) {
@@ -44,36 +66,52 @@ export default function OrderAdminPage() {
   };
 
   return (
-    <div className={classes.container}>
-      <div className={classes.list}>
-        <Title title="Manage Orders" margin="1rem auto" />
-        <table>
+    <div className={classes.container} >
+      <Title title="Manage Orders" margin="1.5rem 0 3 .2rem" fontSize="1.9rem" />
+      {orders && (
+        <table className={classes.ordersTable}>
           <thead>
             <tr>
-              <th>OrderID</th>
-              <th>FirstName</th>
-              <th>FoodName</th>
-              <th>PaymentID</th>
+              <th>Order ID</th>
+              <th>First Name</th>
+              <th>Last Name</th>
+              <th>Created At</th>
               <th>Status</th>
+              <th>Items</th>
+              <th>Total Price</th>
+              <th className={classes.actionColumn}>Action</th>
             </tr>
           </thead>
           <tbody>
-            {order && (
+            {orders.map((order, index) => (
               <tr key={order.id}>
                 <td>{order.id}</td>
-                <td>{order.FirstName}</td>
-                <td>{order.food}</td>
-                <td>{order.paymentId}</td>
+                <td>{order.firstName}</td>
+                <td>{order.lastName}</td>
+                <td><DateTime date={order.createdAt} /></td>
+                <td>{order.status}</td>
                 <td>
-                  <button onClick={() => handleStatusChange(order.id, 'SHIPPED')}>Shipped</button>
-                  <button onClick={() => handleStatusChange(order.id, 'CANCELED')}>Canceled</button>
-                  <button onClick={() => handleStatusChange(order.id, 'REFUNDED')}>Refunded</button>
+                  <ol>
+                    {order.items.map(item => (
+                      <li key={item.food.id}>
+                        {item.food.name}
+                      </li>
+                    ))}
+                  </ol>
+                </td>
+                <td><Price price={order.totalPrice} /></td>
+                <td className={`${classes.customFont} ${classes.actionColumn}`}>
+                  <div className={classes.buttonContainer}>
+                    <button onClick={() => handleStatusChange(order.id, 'SHIPPED')}>Shipped</button>
+                    <button onClick={() => handleStatusChange(order.id, 'CANCELED')}>Canceled</button>
+                    <button onClick={() => handleStatusChange(order.id, 'REFUNDED')}>Refunded</button>
+                  </div>
                 </td>
               </tr>
-            )}
+            ))}
           </tbody>
         </table>
-      </div>
+      )}
     </div>
   );
 }
