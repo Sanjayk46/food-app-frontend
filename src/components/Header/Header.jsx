@@ -17,7 +17,7 @@ export default function Header() {
     <header className={classes.header}>
       <div className={classes.container}>
         <Link to="/" className={classes.logo}>
-          SK Restarunt
+          SK Restaurant
         </Link>
         <nav>
           <ul>
