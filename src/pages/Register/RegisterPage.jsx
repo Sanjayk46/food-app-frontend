@@ -56,7 +56,7 @@ export default function RegisterPage() {
             label="LastName"
             {...register('lastName', {
               required: true,
-              minLength: 5,
+              minLength: 1,
             })}
             error={errors.name}
           />
@@ -98,7 +98,7 @@ export default function RegisterPage() {
             label="Address"
             {...register('address', {
               required: true,
-              minLength: 10,
+              minLength: 2,
             })}
             error={errors.address}
           />
