@@ -84,8 +84,13 @@ export default function OrderAdminPage() {
           <tbody>
             {orders.map((order, index) => (
               // Filter out orders that are not payed
-              {order.status === 'payed' &&
+              order.status === 'payed' && (
                 <tr key={order.id}>
+                  <td>{order.id}</td>
+                  <td>{order.firstName}</td>
+                  <td>{order.lastName}</td>
+                  <td><DateTime date={order.createdAt} /></td>
+                  <td style={{ color: 'green' }}>{order.status}</td> {/* Green color for status */}
                   <td>
                     <ol>
                       {order.items.map(item => (
@@ -95,12 +100,7 @@ export default function OrderAdminPage() {
                       ))}
                     </ol>
                   </td>
-                  <td>{order.firstName}</td>
-                  <td>{order.lastName}</td>
-                  <td><DateTime date={order.createdAt} /></td>
-                  <td style={{ color: 'green' }}>{order.status}</td> {/* Green color for status */}
                   <td><Price price={order.totalPrice} /></td>
-                  <td>{order.id}</td>
                   <td className={`${classes.customFont} ${classes.actionColumn}`}>
                     <div className={classes.buttonContainer}>
                       <button style={{ backgroundColor: 'red' }} onClick={() => handleStatusChange(order.id, 'CANCEL')}>Cancel</button> {/* Red color for cancel button */}
@@ -108,7 +108,7 @@ export default function OrderAdminPage() {
                     </div>
                   </td>
                 </tr>
-              }
+              )
             ))}
           </tbody>
         </table>
