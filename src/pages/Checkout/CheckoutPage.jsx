@@ -29,7 +29,7 @@ export default function CheckoutPage(){
         toast.warning('please select your location on the map');
         return;
         }
-      await createOrder({...order, name:data.name , address:data.address});
+      await createOrder({...order, firstName:data.firstName,lastName:data.lastName , address:data.address});
       navigate('/payment');
     }
     return(
