@@ -45,6 +45,12 @@ button:hover {
   font-weight: 400; /* Specify font weight if needed */
   font-size: 16px; /* Specify font size if needed */
 }
+tr:hover {
+  background-color: #f2f2f2; /* Alternate background color */
+}
+tr:hover td {
+  background-color: transparent; /* Reset cell background color */
+}
 
 .horizontalButtons {
   display: flex;
