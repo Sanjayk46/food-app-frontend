@@ -18,9 +18,10 @@ const reducer = (state, action) => {
       return state;
   }
 };
+// Import statements and other code...
 
 export default function OrderAdminPage() {
-  const [{ orders }, dispatch] = useReducer(reducer, initialState);
+  const [{ allStatus, orders }, dispatch] = useReducer(reducer, initialState);
   const { filter } = useParams();
   const [order, setOrder] = useState([]);
 
@@ -65,50 +66,47 @@ export default function OrderAdminPage() {
   };
 
   return (
-    <div className={classes.container}>
+    <div className={classes.container} >
       <Title title="Manage Orders" margin="1.5rem 0 3 .2rem" fontSize="1.9rem" />
       {orders && (
         <table className={classes.ordersTable}>
           <thead>
             <tr>
-              <th>Items</th>
+              <th>Order ID</th>
               <th>First Name</th>
               <th>Last Name</th>
               <th>Created At</th>
-              <th>Order ID</th>
               <th>Status</th>
+              <th>Items</th>
               <th>Total Price</th>
               <th className={classes.actionColumn}>Action</th>
             </tr>
           </thead>
           <tbody>
             {orders.map((order, index) => (
-              // Filter out orders that are not payed
-              order.status === 'payed' && (
-                <tr key={order.id}>
-                  <td>
-                    <ol>
-                      {order.items.map(item => (
-                        <li key={item.food.id}>
-                          {item.food.name}
-                        </li>
-                      ))}
-                    </ol>
-                  </td>
-                  <td>{order.firstName}</td>
-                  <td>{order.lastName}</td>
-                  <td><DateTime date={order.createdAt} /></td>
-                  <td>{order.id}</td>
-                  <td style={{ color: 'green' }}>{order.status}</td> {/* Green color for status */}
-                  <td><Price price={order.totalPrice} /></td>
-                  <td className={`${classes.customFont} ${classes.actionColumn}`}>
-                    <div className={classes.buttonContainer}>
-                      <button style={{ backgroundColor: 'red' }} onClick={() => handleStatusChange(order.id, 'CANCEL')}>Cancel</button> {/* Red color for cancel button */}
-                      <button style={{ backgroundColor: 'green' }} onClick={() => handleStatusChange(order.id, 'REFUND')}>Refund</button> {/* Green color for refund button */}
-                    </div>
-                  </td>
-                </tr>
-              )
+              <tr key={order.id}>
+                <td>{order.id}</td>
+                <td>{order.firstName}</td>
+                <td>{order.lastName}</td>
+                <td><DateTime date={order.createdAt} /></td>
+                <td style={{ color: 'green' }}>{order.status}</td>
+                <td>
+                  <ol>
+                    {order.items.map(item => (
+                      <li key={item.food.id}>
+                        {item.food.name}
+                      </li>
+                    ))}
+                  </ol>
+                </td>
+                <td><Price price={order.totalPrice} /></td>
+                <td className={`${classes.customFont} ${classes.actionColumn}`}>
+                  <div className={classes.buttonContainer}>
+                  <button style={{ backgroundColor: 'red' }} onClick={() => handleStatusChange(order.id, 'CANCEL')}>Cancel</button> {/* Red color for cancel button */}
+                  <button style={{ backgroundColor: 'green' }} onClick={() => handleStatusChange(order.id, 'REFUND')}>Refund</button> {/* Green color for refund button */}
+                  </div>
+                </td>
+              </tr>
             ))}
           </tbody>
         </table>
