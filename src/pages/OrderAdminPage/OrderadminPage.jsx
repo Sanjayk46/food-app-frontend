@@ -84,8 +84,8 @@ export default function OrderAdminPage() {
           <tbody>
             {orders.map((order, index) => (
               // Filter out orders that are not payed
-              order.status === 'payed' && (
                 <tr key={order.id}>
+                 order.status === 'payed' && (
                   <td>{order.id}</td>
                   <td>{order.firstName}</td>
                   <td>{order.lastName}</td>
