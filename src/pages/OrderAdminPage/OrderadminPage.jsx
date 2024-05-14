@@ -71,12 +71,12 @@ export default function OrderAdminPage() {
         <table className={classes.ordersTable}>
           <thead>
             <tr>
-              <th>Order ID</th>
+              <th>Items</th>
               <th>First Name</th>
               <th>Last Name</th>
               <th>Created At</th>
+              <th>Order ID</th>
               <th>Status</th>
-              <th>Items</th>
               <th>Total Price</th>
               <th className={classes.actionColumn}>Action</th>
             </tr>
@@ -84,13 +84,8 @@ export default function OrderAdminPage() {
           <tbody>
             {orders.map((order, index) => (
               // Filter out orders that are not payed
+              order.status === 'payed' && (
                 <tr key={order.id}>
-                 order.status === 'payed' && (
-                  <td>{order.id}</td>
-                  <td>{order.firstName}</td>
-                  <td>{order.lastName}</td>
-                  <td><DateTime date={order.createdAt} /></td>
-                  <td style={{ color: 'green' }}>{order.status}</td> {/* Green color for status */}
                   <td>
                     <ol>
                       {order.items.map(item => (
@@ -100,6 +95,11 @@ export default function OrderAdminPage() {
                       ))}
                     </ol>
                   </td>
+                  <td>{order.firstName}</td>
+                  <td>{order.lastName}</td>
+                  <td><DateTime date={order.createdAt} /></td>
+                  <td>{order.id}</td>
+                  <td style={{ color: 'green' }}>{order.status}</td> {/* Green color for status */}
                   <td><Price price={order.totalPrice} /></td>
                   <td className={`${classes.customFont} ${classes.actionColumn}`}>
                     <div className={classes.buttonContainer}>
