@@ -1,0 +1,25 @@
+SK Restaurant Instructions:
+
+User:
+
+1.On the homepage, you'll find a list of available foods. Select your favorite, and you'll be directed to its specific page. Click the "Add to Cart" button, and you'll then 
+be redirected to the cart page.
+2.From the cart page, click "Proceed to Checkout," which will lead you to the login page. If you're a new user, click "Register" and fill in your details.
+3.After registration or if you're an existing user, log in with your email ID and password. This will take you to the order page where you'll see your selected 
+food details and your personal information. If everything looks correct, click "Find My Location." Once your correct location is displayed, click "Proceed to Payment."
+4.Enter your card details and the valid OTP you receive. Once payment is successful, you'll receive an order confirmation email from the restaurant.
+5.Your order will be delivered soon.
+6.If you forget your password, click "Forgot Password," which will redirect you to the password reset page. Check your email for the OTP, enter it, and set a new password.
+
+Admin:
+Credentials:
+Email: test@gmail.com
+Password: password@123
+If you're an admin, you can make changes to food and user details.
+1. Click on the username at the top, labeled "SK Restaurant Admin." This action will redirect you to the dashboard. Click on the "Orders" button to access the admin orders page. 
+Here, you'll see users' order details including order ID, username, payment ID, date and time, and food items. You can change the order status to "Shipped," "Refunded," or "Canceled" 
+using the respective buttons.
+2.Back on the dashboard, click the "Users" button to view user details. You can edit user details here and also have the option to block users.
+3.Return to the dashboard and click the "Foods" button to access the admin foods page. Here, you'll find a list of food details. To edit a food item, click the "Edit" button, which will 
+redirect you to the admin food edit page. Make the necessary changes and click "Update" to save them.
+4. Alternatively, if you want to add a new food item, click the "Add Food" button, enter the food details, and click "Create." Changes will be reflected on the homepage.
